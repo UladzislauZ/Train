@@ -22,7 +22,7 @@ namespace Train.Core
             _startingPos = transform.position.x;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             if(!isInit)
             {
@@ -32,9 +32,9 @@ namespace Train.Core
             Vector2 CameraPosition = _camera.transform.position;
             float Distance = CameraPosition.x * _amountOfParallax;
 
-            Vector2 NewPosition = new(_startingPos + Distance, transform.position.y);
-
-            transform.position = NewPosition;
+            transform.position = Vector2.Lerp(new(_startingPos, transform.position.y),
+                                              new(_startingPos + Distance, transform.position.y), 
+                                              _amountOfParallax);
         }
     }
 }
